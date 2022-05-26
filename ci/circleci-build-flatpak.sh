@@ -33,21 +33,6 @@ exec > >(tee $builddir/build.log) 2>&1
 
 if [ -n "$TRAVIS_BUILD_DIR" ]; then cd $TRAVIS_BUILD_DIR; fi
 
-# Install extra build libs
-ME=$(echo ${0##*/} | sed 's/\.sh//g')
-EXTRA_LIBS=./ci/extras/extra_libs.txt
-if test -f "$EXTRA_LIBS"; then
-    while read line; do
-        sudo apt-get install $line
-    done < $EXTRA_LIBS
-fi
-EXTRA_LIBS=./ci/extras/${ME}_extra_libs.txt
-if test -f "$EXTRA_LIBS"; then
-    while read line; do
-        sudo apt-get install $line
-    done < $EXTRA_LIBS
-fi
-
 if [ -n "$CI" ]; then
     sudo apt update
 
